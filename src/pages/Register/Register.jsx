@@ -1,4 +1,5 @@
-
+import Lottie from "lottie-react";
+import registerLottieData from '../../assets/lottie/register.json'
 const Register = () => {
     return (
         <div>
@@ -6,10 +7,7 @@ const Register = () => {
   <div className="hero-content flex-col lg:flex-row-reverse">
     <div className="text-center lg:text-left">
       <h1 className="text-5xl font-bold">Register now!</h1>
-      <p className="py-6">
-        Provident cupiditate voluptatem et in. Quaerat fugiat ut assumenda excepturi exercitationem
-        quasi. In deleniti eaque aut repudiandae et a id nisi.
-      </p>
+      <Lottie animationData={registerLottieData}></Lottie>
     </div>
     <div className="card bg-base-100 w-full max-w-sm shrink-0 shadow-2xl">
     <h1 className="text-5xl font-bold ml-8 mt-4">Register now!</h1>
