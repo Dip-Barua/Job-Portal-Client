@@ -1,7 +1,7 @@
 import { useContext } from "react";
 import { Link } from "react-router-dom";
 import AuthContext from "../../context/AuthContext/AuthContext";
-
+import logo from "../../assets/jobs-logo.png"
 const NavBar = () => {
 
   const { user , loading , signOutUser } = useContext(AuthContext);
@@ -17,9 +17,13 @@ const NavBar = () => {
   }
 
   const links = <>
+   <li>
+            <Link to="/">Home</Link>
+              </li>
                 <li>
                 <a>Item 1</a>
               </li>
+               
 
               <li>
                 <a>Item 3</a>
@@ -31,7 +35,7 @@ if (loading) {
 }
   return (
     <div>
-      <div className="navbar bg-base-100">
+      <div className="navbar bg-base-100 w-9/12 mx-auto">
         <div className="navbar-start">
           <div className="dropdown">
             <div tabIndex={0} role="button" className="btn btn-ghost lg:hidden">
@@ -57,7 +61,7 @@ if (loading) {
 {links}
             </ul>
           </div>
-          <a className="btn btn-ghost text-xl">daisyUI</a>
+          <Link to="/" className="btn btn-ghost text-2xl"><img src={logo} alt="" /> Job Portal</Link>
         </div>
         <div className="navbar-center hidden lg:flex">
           <ul className="menu menu-horizontal px-1">
