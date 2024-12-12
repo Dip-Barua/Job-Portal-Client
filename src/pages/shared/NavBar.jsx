@@ -48,8 +48,8 @@ const NavBar = () => {
           </ul>
         </div>
         <div className="navbar-end">
-          <a className="btn">Sign In</a>
-          <Link to="/register">Register</Link>
+          <Link to="/login" className="btn">Sign In</Link>
+          <Link to="/register" className="btn">Register</Link>
         </div>
       </div>
     </div>
