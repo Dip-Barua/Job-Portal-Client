@@ -1,6 +1,11 @@
 import Lottie from "lottie-react";
 import loginLottieData from '../../assets/lottie/login.json'
+import { useContext } from "react";
+import AuthContext from "../../context/AuthContext/AuthContext";
 const SignIn = () => {
+
+const {signInUser} = useContext(AuthContext);
+
 
 const handleSignIn = e => {
     e.preventDefault();
@@ -11,6 +16,14 @@ const handleSignIn = e => {
   console.log(email, password);
   // send request to server to authenticate user...
 
+signInUser(email, password)
+.then(result => {
+    console.log(result.user)
+})
+.catch(error => {
+    console.error(error);
+     
+})
 
 
 }
