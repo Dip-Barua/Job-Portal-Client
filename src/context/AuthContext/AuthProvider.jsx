@@ -1,6 +1,6 @@
 import AuthContext from "./AuthContext";
-import { useState } from 'react';
-import {  createUserWithEmailAndPassword, signInWithEmailAndPassword } from "firebase/auth";
+import { useEffect, useState } from 'react';
+import {  createUserWithEmailAndPassword, onAuthStateChanged, signInWithEmailAndPassword, signOut } from "firebase/auth";
 import auth from "../../firebase/firebase.init";
 
 
@@ -11,6 +11,22 @@ const AuthProvider = ({ children }) => {
     const [loading, setLoading] = useState(true);
 
 
+        // Monitor authentication state changes (on page reload)
+        useEffect(() => {
+            const unsubscribe = onAuthStateChanged(auth, (currentUser) => {
+                if (currentUser) {
+                    setUser(currentUser);  // Set user state if logged in
+                } else {
+                    setUser(null);  // Set user to null if not logged in
+                }
+                setLoading(false);  // Stop loading when state is updated
+            });
+    
+            // Cleanup the subscription when the component is unmounted
+            return () => unsubscribe();
+        }, []);
+
+
     const createUser = (email , password) => {
         setLoading(true);
         return createUserWithEmailAndPassword(auth , email, password);
@@ -19,7 +35,22 @@ const AuthProvider = ({ children }) => {
 
     const signInUser = (email , password) => {
         setLoading(true);
-        return signInWithEmailAndPassword(auth, email, password);
+        return signInWithEmailAndPassword(auth, email, password)
+        .then((userCredential) => {
+            setUser(userCredential.user); 
+            setLoading(false); 
+            return userCredential; 
+        })
+
+
+    }
+
+    const signOutUser = () => {
+        setLoading(true);
+        return signOut(auth)
+        .then(() => {
+            setUser(null);
+        })
 
     }
 
@@ -29,7 +60,8 @@ const AuthProvider = ({ children }) => {
         user,
         loading,
         createUser,
-        signInUser
+        signInUser,
+        signOutUser
     }
 
 

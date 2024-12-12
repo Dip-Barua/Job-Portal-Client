@@ -1,7 +1,20 @@
+import { useContext } from "react";
 import { Link } from "react-router-dom";
+import AuthContext from "../../context/AuthContext/AuthContext";
 
 const NavBar = () => {
 
+  const { user , loading , signOutUser } = useContext(AuthContext);
+  const handleSignOut = () =>{
+
+    signOutUser()
+    .then(() => {
+      // Sign-out successful.
+    })
+    .catch(error => {
+      console.log(error);
+    })
+  }
 
   const links = <>
                 <li>
@@ -12,6 +25,10 @@ const NavBar = () => {
                 <a>Item 3</a>
               </li>
   </>
+
+if (loading) {
+  return <div>Loading...</div>;  // You can replace this with a loading spinner or animation
+}
   return (
     <div>
       <div className="navbar bg-base-100">
@@ -48,8 +65,20 @@ const NavBar = () => {
           </ul>
         </div>
         <div className="navbar-end">
-          <Link to="/login" className="btn">Sign In</Link>
-          <Link to="/register" className="btn">Register</Link>
+          {
+            user? (
+              <div>
+                <span>Hello, {user.email}!</span>
+                <button onClick={handleSignOut} className="btn m-2">Logout</button>
+              </div>
+            ) : (
+              <div>
+                          <Link to="/login" className="btn">Sign In</Link>
+                          <Link to="/register" className="btn">Register</Link>
+              </div>
+            )
+          }
+
         </div>
       </div>
     </div>
