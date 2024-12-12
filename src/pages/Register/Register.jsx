@@ -1,7 +1,11 @@
 import Lottie from "lottie-react";
 import registerLottieData from '../../assets/lottie/register.json'
+import { useContext } from "react";
+import AuthContext from "../../context/AuthContext/AuthContext";
 const Register = () => {
 
+
+const {createUser} = useContext(AuthContext);
 
 const handleRegister = e => {
   e.preventDefault();
@@ -10,15 +14,13 @@ const handleRegister = e => {
   const password = form.password.value;
 
 
-//password validation
-const passwordCriteria = /^(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,}$/;
-
-if(!password.match(passwordCriteria)){
-  alert('Password must be at least 8 characters long and contain at least one uppercase letter, one lowercase letter, one number, and one special character');
-  return;
-}
-console.log(email, password);
-
+createUser(email, password)
+.then(result => {
+  console.log(result.user)
+})
+.catch(error => {
+  console.log(error.message)
+})
 }
 
 
