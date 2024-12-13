@@ -21,12 +21,12 @@ const NavBar = () => {
             <Link to="/">Home</Link>
               </li>
                 <li>
-                <a>Item 1</a>
-              </li>
+                <Link to="/myApplication">My Applications</Link>
+                </li>
                
 
               <li>
-                <a>Item 3</a>
+                <a>Other 2</a>
               </li>
   </>
 
