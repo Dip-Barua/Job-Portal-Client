@@ -1,3 +1,6 @@
+import { Navigate } from "react-router-dom";
+import Swal from "sweetalert2";
+
 const AddJob = () => {
     const handleAddJob = (e) => {
       e.preventDefault();
@@ -24,6 +27,19 @@ fetch('http://localhost:5000/jobs', {
     body: JSON.stringify(newJob)
   
 })
+.then(res => res.json())
+ .then(data => {
+    if(data.insertedId){
+                Swal.fire({
+                    position: "top-end",
+                    icon: "success",
+                    title: "New job added successfully",
+                    showConfirmButton: false,
+                    timer: 1500
+                  });
+                  Navigate('/')
+            }
+ })
 
 
     };
